@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     app: [
       './client/sass/main.sass',
+      './client/js/index.js',
     ],
   },
 

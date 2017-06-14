@@ -1,4 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik:400,500')
+$font-family: 'Montserrat'
+$font-weight: 300
+
+$box-size: 5.5rem
+$box-size-hover: $box-size + 1.5rem
+$box-font-downsize: 2rem
+$title-height: 1.5rem
+
+$font-url: 'https://fonts.googleapis.com/css?family=' + $font-family + ':' + $font-weight
+@import url($font-url)
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons')
 
 *
@@ -7,8 +16,8 @@
   border: 0
   outline: 0
   box-sizing: border-box
-  font-family: 'Rubik'
-  font-weight: 400
+  font-family: $font-family
+  font-weight: $font-weight
 
 body,html
   height: 100%
@@ -16,25 +25,12 @@ body,html
   background-repeat: no-repeat
   background-attachment: fixed
 
-$base-color: #598797
-
-$top-left-color: $base-color
-$top-right-color: lighten($base-color, 10%)
-$bottom-left-color: lighten($base-color, 10%)
-$bottom-right-color: $base-color
-
-$box-size: 5.5rem
-$box-size-hover: $box-size + 1.5rem
-$box-font-downsize: 2rem
-$title-height: 1.5rem
-
 h1
   position: absolute
-  top: 20%
+  top: 25%
+  margin-top: -0.5em
   width: 100%
   text-align: center
-  color: $base-color
-  opacity: 0.4
   font-size: 40px
 
 .q
@@ -95,33 +91,20 @@ h1
   &.t-l .bw
     bottom: 0
     right: 0
-    .b
-      background-color: $top-left-color
-    .t
-      color: $top-left-color
 
   &.t-r .bw
     bottom: 0
     left: 0
-    .b
-      background-color: $top-right-color
     .t
-      color: $top-right-color
       text-align: right
+
   &.b-l .bw
     top: 0
     right: 0
-    .b
-      background-color: $bottom-left-color
-    .t
-      color: $bottom-left-color
 
   &.b-r .bw
     top: 0
     left: 0
-    .b
-      background-color: $bottom-right-color
     .t
-      color: $bottom-right-color
       text-align: right
 
