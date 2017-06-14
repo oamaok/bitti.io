@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,500')
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons')
+
+*
+  margin: 0
+  padding: 0
+  border: 0
+  outline: 0
+  box-sizing: border-box
+  font-family: 'Rubik'
+  font-weight: 400
+
+body,html
+  height: 100%
+  background-image: radial-gradient(circle at 50% 50%, #ffffff 0%, #ccc 100%)
+  background-repeat: no-repeat
+  background-attachment: fixed
+
+$top-left-color: #598797
+$top-right-color: #AA8155
+$bottom-left-color: #aa5555
+$bottom-right-color: #41824C
+
+$box-size: 5.5rem
+$box-size-hover: $box-size + 1.5rem
+$box-font-downsize: 2rem
+$title-height: 1.5rem
+
+.q
+  width: 50%
+  height: 50%
+  float: left
+  position: relative
+
+  .bw
+    width: $box-size
+    height: $box-size + $title-height
+    position: absolute
+
+    transition-property: width, height
+    transition-timing-function: ease-out
+    transition-duration: 0.2s
+
+    .b
+      width: $box-size
+      height: $box-size
+
+      font-size: $box-size - $box-font-downsize
+
+      padding: $box-font-downsize * 0.5
+
+      transition-property: width, height, font-size
+      transition-timing-function: ease-out
+      transition-duration: 0.2s
+
+      color: #f7f7f7
+      font-family: 'Material Icons'
+
+    .t
+      opacity: 0
+      transition-property: opacity
+      transition-timing-function: ease-out
+      transition-duration: 0.2s
+
+      height: $title-height
+      line-height: $title-height
+      padding-left: $title-height - 1rem
+      padding-right: $title-height - 1rem
+
+    &:hover
+      width: $box-size-hover
+      height: $box-size-hover + $title-height
+
+      .b
+        width: $box-size-hover
+        height: $box-size-hover
+
+        font-size: $box-size-hover - $box-font-downsize
+
+      .t
+        opacity: 1
+
+  &.t-l .bw
+    bottom: 0
+    right: 0
+    .b
+      background-color: $top-left-color
+    .t
+      color: $top-left-color
+
+  &.t-r .bw
+    bottom: 0
+    left: 0
+    .b
+      background-color: $top-right-color
+    .t
+      color: $top-right-color
+      text-align: right
+  &.b-l .bw
+    top: 0
+    right: 0
+    .b
+      background-color: $bottom-left-color
+    .t
+      color: $bottom-left-color
+
+  &.b-r .bw
+    top: 0
+    left: 0
+    .b
+      background-color: $bottom-right-color
+    .t
+      color: $bottom-right-color
+      text-align: right
+
