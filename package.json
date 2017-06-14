@@ -5,7 +5,8 @@
   "main": "",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --hot --config webpack.dev.config.js",
-    "build": "rm -r build/ && NODE_ENV=production webpack -p --config webpack.prod.config.js"
+    "build": "rm -rf build/ && NODE_ENV=production webpack -p --config webpack.prod.config.js",
+    "deploy": "shipit production deploy"
   },
   "author": "Teemu Pääkkönen <oamaok@gmail.com>",
   "license": "MIT",
@@ -28,6 +29,9 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
+    "shipit": "^1.0.2",
+    "shipit-cli": "^3.0.0",
+    "shipit-deploy": "^2.4.0",
     "webpack-dev-server": "^2.4.5"
   }
 }
