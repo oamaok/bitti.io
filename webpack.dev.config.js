@@ -41,6 +41,10 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.js$/,
+        loader: 'babel-loader',
+      },
+      {
         test: /\.s[ac]ss$/,
         loaders: [
           'style-loader',
