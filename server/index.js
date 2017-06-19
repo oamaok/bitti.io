@@ -16,8 +16,7 @@ const router = new Router({
   prefix: '/api',
 });
 
-router
-.get('/audio', async (ctx) => {
+async function createAudioCache() {
   const files = fs.readdirSync(config.audioDir)
     .filter(file => file.endsWith('.mp3'))
     .map(file => [file, fs.statSync(path.resolve(config.audioDir, file))])
@@ -43,7 +42,22 @@ router
     )
   );
 
-  ctx.body = files.map((file, idx) => Object.assign({}, file, { length: lengths[idx] }));
+  fs.writeFileSync(path.resolve(config.audioDir, 'cache.json'), JSON.stringify(files.map((file, idx) => Object.assign({}, file, { length: lengths[idx] }))));
+}
+
+router
+.get('/createAudioCache', async (ctx) => {
+  await createAudioCache();
+  ctx.body = 'done!';
+})
+.get('/audio', async (ctx) => {
+  if (!fs.existsSync(path.resolve(config.audioDir, 'cache.json'))) {
+    await createAudioCache();
+  }
+
+  ctx.body = JSON.parse(
+    fs.readFileSync(path.resolve(config.audioDir, 'cache.json'))
+  );
 })
 .get('/audio/:file', (ctx) => {
   const file = ctx.params.file.split('/').pop();
