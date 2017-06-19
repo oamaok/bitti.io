@@ -32,7 +32,7 @@ module.exports = (shipit) => {
 
   shipit.blTask('install-modules', () =>
     shipit.local(
-      'npm install --prod',
+      'npm install',
       { cwd: shipit.config.workspace }
     )
   );
@@ -44,8 +44,15 @@ module.exports = (shipit) => {
     )
   );
 
+  shipit.blTask('restart-api-server', () =>
+    shipit.remote(`cd ${shipit.currentPath} && npm install --prod`)
+    .then(() => shipit.remote('pm2 reload all'))
+  );
+
+
   shipit.on('fetched', () => shipit.start([
     'install-modules',
     'build-package',
+    'restart-api-server',
   ]));
 };
