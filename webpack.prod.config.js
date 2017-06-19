@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     app: [
       './client/sass/main.sass',
-      './client/js/index.js',
+      './client/js/index.jsx',
     ],
   },
 
@@ -18,7 +18,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.sass', '.scss'],
+    extensions: ['.js', '.jsx', '.sass', '.scss'],
   },
 
   plugins: [
