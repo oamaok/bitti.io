@@ -1,5 +1,5 @@
 $font-family: 'Quicksand'
-$font-weight: 500
+$font-weight: 400
 
 $box-size: 6rem
 $box-size-hover: $box-size + 1.5rem
@@ -88,16 +88,17 @@ a
 
         color: rgba(255, 255, 255, 0.8)
         font-family: 'Material Icons'
-      .content
-        font-size: 15px
+      .content-wrapper
         position: absolute
-        padding: 1em
         width: $box-size-active
         height: $box-size-active
-        color: #f7f7f7
         opacity: 0
         transition-delay: 0.1s
         transition-property: opacity
+        .content
+          padding: 1em
+          color: #f7f7f7
+          font-size: 15px
 
     .title
       opacity: 0
@@ -138,7 +139,7 @@ a
           font-size: $box-size - $box-font-downsize
           color: transparent
 
-        .content
+        .content-wrapper
           opacity: 1
 
       .title
@@ -148,7 +149,7 @@ a
     bottom: 0
     right: 0
     .box
-      .content
+      .content-wrapper
         bottom: 0
         right: 0
       .icon
@@ -161,7 +162,7 @@ a
     .title
       text-align: right
     .box
-      .content
+      .content-wrapper
         bottom: 0
         left: 0
       .icon
@@ -172,6 +173,9 @@ a
     top: 0
     right: 0
     .box
+      .content-wrapper
+        top: 0
+        right: 0
       .icon
         top: $box-font-downsize * 0.5
         right: $box-font-downsize * 0.5
@@ -196,3 +200,4 @@ a
       background-color: transparent
       padding: 1em
 
+@import 'audio-player';

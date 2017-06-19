@@ -36,6 +36,11 @@ module.exports = {
     hot: true,
     contentBase: path.resolve(__dirname, 'build/'),
     publicPath: '/',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+      },
+    },
   },
 
   module: {

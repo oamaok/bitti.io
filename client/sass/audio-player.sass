@@ -1,0 +1,47 @@
+$filebar-height: 3rem
+$progressbar-height: 0.2rem
+
+.audio-player
+  color: #f7f7f7
+  overflow-y: scroll
+  font-size: 15px
+  height: $box-size-active
+
+  .file-wrapper
+    height: $filebar-height
+
+    .file
+      height: $filebar-height
+
+      .control
+        height: $filebar-height - $progressbar-height
+        width: $filebar-height - $progressbar-height
+        float: left
+        font-family: 'Material Icons'
+        font-size: 2.5em
+        line-height: $filebar-height - $progressbar-height
+        text-align: center
+        user-select: none
+        cursor: pointer
+
+      .name
+        height: $filebar-height - $progressbar-height
+        padding-left: 1em
+        line-height: $filebar-height - $progressbar-height
+
+      .progress
+        height: $progressbar-height
+        background-color: rgba(255, 255, 255, 0.2)
+
+        .progress-inner
+          background-color: rgba(255, 255, 255, 0.75)
+          height: $progressbar-height
+
+  &::-webkit-scrollbar
+    width: 10px
+   
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: inset 20px 0 0 rgba(0,0,0,0.2)
+
+  &::-webkit-scrollbar-thumb
+    background-color: rgba(0, 0, 0, 0.5)

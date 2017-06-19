@@ -6,6 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --hot --config webpack.dev.config.js",
     "build": "rm -rf build/ && NODE_ENV=production webpack -p --config webpack.prod.config.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "deploy": "shipit production deploy"
   },
   "author": "Teemu Pääkkönen <oamaok@gmail.com>",
@@ -22,6 +24,11 @@
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
     "html-webpack-plugin": "^2.28.0",
+    "immutable": "^3.8.1",
+    "koa": "^2.0.0-alpha.8",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.1.1",
+    "mp3-duration": "^1.0.10",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.5",
     "prop-types": "^15.5.10",

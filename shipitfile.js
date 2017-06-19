@@ -11,12 +11,16 @@ module.exports = (shipit) => {
   shipit.initConfig({
     default: {
       workspace,
-      dirToCopy: path.resolve(workspace, 'build'),
       repositoryUrl: 'git@github.com:oamaok/bitti.io',
       key: `${process.env.HOME}/.ssh/id_rsa`,
       keepReleases: 2,
       shallowClone: true,
-      ignores: [],
+      ignores: [
+        '/client',
+        '/node_modules',
+        '/*.js',
+        '/.*',
+      ],
     },
 
     production: {

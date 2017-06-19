@@ -1,39 +1,12 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Box({ title, bottom, icon, color, onClick, active, children }) {
-  const content = [
-    <div key="title" className="title" style={{ color }}>{title}</div>,
-    <div key="box" className="box" style={{ backgroundColor: color }}>
-      <div className="icon">{icon}</div>
-      <div className="content">{children}</div>
-    </div>,
-  ];
+import Box from './Box';
+import AudioPlayer from './AudioPlayer';
 
-  const className = active === title ? 'box-wrapper active' : 'box-wrapper';
-
-  return (
-    <div className={className} onClick={onClick}>
-      {bottom ? content.reverse() : content }
-    </div>
-  );
-}
-
-Box.propTypes = {
-  title: PropTypes.string.isRequired,
-  bottom: PropTypes.bool,
-  icon: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  children: PropTypes.node,
-  onClick: PropTypes.func,
-};
-
-Box.defaultProps = {
-  bottom: false,
-  children: null,
-  onClick: () => {},
-};
+const ABOUT_BOX = Symbol('about');
+const THINGS_BOX = Symbol('things');
+const AUDIO_BOX = Symbol('audio');
 
 class Root extends React.Component {
   constructor(props) {
@@ -45,10 +18,18 @@ class Root extends React.Component {
     };
   }
 
-  toggleBox = (box) => {
+  setActive = (box) => {
     this.setState({
-      activeBox: this.state.activeBox === box ? '' : box,
+      activeBox: box,
     });
+  }
+
+  handleBackgroundClick = (evt) => {
+    if (evt.target.className.startsWith('quad')) {
+      this.setState({
+        activeBox: '',
+      });
+    }
   }
 
   randomColor = () => {
@@ -67,86 +48,97 @@ class Root extends React.Component {
     const base = `hsl(${hue}, 26%, 40%)`;
     const lighter = `hsl(${hue}, 26%, 55%)`;
 
-    const className = activeBox ? 'root active-box' : 'root';
+    const className = [ABOUT_BOX, THINGS_BOX].includes(activeBox) ? 'root active-box' : 'root';
 
     return (
-      <div className={className}>
+      <div
+        className={className}
+        onClick={this.handleBackgroundClick}
+      >
         <h1 style={{ color: base }}>bitti.io</h1>
         <div className="quad top-left">
           <Box
-            onClick={() => this.toggleBox('about')}
+            onClick={() => this.setActive(ABOUT_BOX)}
             title="about"
             icon="&#xE88F;"
             color={base}
-            active={activeBox}
+            active={activeBox === ABOUT_BOX}
           >
-            <p>hello.</p>
-            <p>i am teemu, a software developer from finland.</p>
-            <p>this is my website. i put stuff here. sometimes.</p>
-            <ul>
-              <li>
-                <a
-                  href="https://github.com/oamaok"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >github</a>
-              </li>
-              <li>
-                <a
-                  href="https://twitter.com/oamaok"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >twitter</a>
-              </li>
-              <li>
-                <a
-                  href="https://steamcommunity.com/id/oamaok"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >steam</a>
-              </li>
-              <li>
-                <a
-                  href="mailto:oamaok@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >email</a>
-              </li>
-            </ul>
+            <div className="content">
+              <p>hello.</p>
+              <p>my name is teemu. i&apos;m a software developer from finland.</p>
+              <p>this is my personal website. i put stuff here. sometimes.</p>
+              <ul>
+                <li>
+                  <a
+                    href="https://github.com/oamaok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >github</a>
+                </li>
+                <li>
+                  <a
+                    href="https://twitter.com/oamaok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >twitter</a>
+                </li>
+                <li>
+                  <a
+                    href="https://steamcommunity.com/id/oamaok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >steam</a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:oamaok@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >email</a>
+                </li>
+              </ul>
+            </div>
           </Box>
         </div>
         <div className="quad top-right">
           <Box
-            onClick={() => this.toggleBox('things')}
+            onClick={() => this.setActive(THINGS_BOX)}
             title="things"
             icon="&#xE1BD;"
             color={lighter}
-            active={activeBox}
+            active={activeBox === THINGS_BOX}
           >
-            <p>
-              <a
-                href="https://osu.bitti.io"
-                target="_blank"
-                rel="noopener noreferrer"
-              >oppai-web</a> &mdash;  online osu! pp calculator
-            </p>
-            <p>
-              <a
-                href="https://chrome.google.com/webstore/detail/ezpp/aimihpobjpagjiakhcpijibnaafdniol"
-                target="_blank"
-                rel="noopener noreferrer"
-              >ezpp!</a> &mdash; browser extension for calculating osu! pp
-            </p>
+
+            <div className="content">
+              <p>
+                <a
+                  href="https://osu.bitti.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >oppai-web</a> &mdash;  online osu! pp calculator
+              </p>
+              <p>
+                <a
+                  href="https://chrome.google.com/webstore/detail/ezpp/aimihpobjpagjiakhcpijibnaafdniol"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >ezpp!</a> &mdash; browser extension for calculating osu! pp
+              </p>
+            </div>
           </Box>
         </div>
         <div className="quad bottom-left">
           <Box
-            onClick={() => this.goTo('https://audio.bitti.io')}
+            onClick={() => this.setActive(AUDIO_BOX)}
             title="audio"
             icon="&#xE023;"
             color={lighter}
+            active={activeBox === AUDIO_BOX}
             bottom
-          />
+          >
+            <AudioPlayer colors={[base, lighter]} />
+          </Box>
         </div>
         <div className="quad bottom-right">
           <Box
