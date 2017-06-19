@@ -1,10 +1,11 @@
-$font-family: 'Montserrat'
-$font-weight: 300
+$font-family: 'Quicksand'
+$font-weight: 500
 
 $box-size: 6rem
 $box-size-hover: $box-size + 1.5rem
+$box-size-active: 18rem
 $box-font-downsize: 2rem
-$title-height: 1.5rem
+$title-height: 2rem
 
 $font-url: 'https://fonts.googleapis.com/css?family=' + $font-family + ':' + $font-weight
 @import url($font-url)
@@ -18,97 +19,181 @@ $font-url: 'https://fonts.googleapis.com/css?family=' + $font-family + ':' + $fo
   box-sizing: border-box
   font-family: $font-family
   font-weight: $font-weight
+  transition-property: none
+  transition-timing-function: ease-out
+  transition-duration: 0.2s
+  overflow: hidden
 
 body,html
+  font-size: 16px
   height: 100%
   background-image: radial-gradient(circle at 50% 50%, #ffffff 0%, #ccc 100%)
   background-repeat: no-repeat
   background-attachment: fixed
 
-.r
+.root
   width: 100%
   height: 100%
-
+  &.active-box
+    h1
+      color: transparent !important
 h1
   position: absolute
-  top: 25%
-  margin-top: -0.5em
+  top: 50%
+  margin-top: -$box-size * 2.5
   width: 100%
   text-align: center
   font-size: 40px
+  transition-property: color
 
-.q
+p
+  margin-bottom: 1em
+
+li
+
+
+a
+  color: #f7f7f7
+
+.quad
   width: 50%
   height: 50%
   float: left
   position: relative
 
-  .bw
+  .box-wrapper
     margin: 1px
     width: $box-size
     height: $box-size + $title-height
     position: absolute
 
     transition-property: width, height
-    transition-timing-function: ease-out
-    transition-duration: 0.2s
 
-    .b
+    .box
+      overflow: hidden
+      position: relative
       width: $box-size
       height: $box-size
 
-      font-size: $box-size - $box-font-downsize
+      transition-property: width, height
 
-      padding: $box-font-downsize * 0.5
+      cursor: pointer
 
-      transition-property: width, height, font-size
-      transition-timing-function: ease-out
-      transition-duration: 0.2s
+      .icon
+        user-select: none
 
-      color: #f7f7f7
-      font-family: 'Material Icons'
+        font-size: $box-size - $box-font-downsize
+        position: absolute
 
-    .t
+        transition-property: color, font-size
+
+        color: rgba(255, 255, 255, 0.8)
+        font-family: 'Material Icons'
+      .content
+        font-size: 15px
+        position: absolute
+        padding: 1em
+        width: $box-size-active
+        height: $box-size-active
+        color: #f7f7f7
+        opacity: 0
+        transition-delay: 0.1s
+        transition-property: opacity
+
+    .title
       opacity: 0
       transition-property: opacity
-      transition-timing-function: ease-out
-      transition-duration: 0.2s
+
+      font-size: 20px
 
       height: $title-height
       line-height: $title-height
-      padding-left: $title-height - 1rem
-      padding-right: $title-height - 1rem
+      padding-left: $title-height - 1.5rem
+      padding-right: $title-height - 1.5rem
 
     &:hover
       width: $box-size-hover
       height: $box-size-hover + $title-height
 
-      .b
+      .box
         width: $box-size-hover
         height: $box-size-hover
 
-        font-size: $box-size-hover - $box-font-downsize
-
-      .t
+        .icon
+          font-size: $box-size-hover - $box-font-downsize
+          color: #f7f7f7
+      .title
         opacity: 1
 
-  &.t-l .bw
+    &.active
+      width: $box-size-active
+      height: $box-size-active + $title-height
+
+      .box
+        width: $box-size-active
+        height: $box-size-active
+
+        cursor: auto
+
+        .icon
+          font-size: $box-size - $box-font-downsize
+          color: transparent
+
+        .content
+          opacity: 1
+
+      .title
+        opacity: 1
+
+  &.top-left .box-wrapper
     bottom: 0
     right: 0
+    .box
+      .content
+        bottom: 0
+        right: 0
+      .icon
+        bottom: $box-font-downsize * 0.5
+        right: $box-font-downsize * 0.5
 
-  &.t-r .bw
+  &.top-right .box-wrapper
     bottom: 0
     left: 0
-    .t
+    .title
       text-align: right
+    .box
+      .content
+        bottom: 0
+        left: 0
+      .icon
+        bottom: $box-font-downsize * 0.5
+        left: $box-font-downsize * 0.5
 
-  &.b-l .bw
+  &.bottom-left .box-wrapper
     top: 0
     right: 0
+    .box
+      .icon
+        top: $box-font-downsize * 0.5
+        right: $box-font-downsize * 0.5
 
-  &.b-r .bw
-    top: 0
-    left: 0
-    .t
-      text-align: right
+  &.bottom-right
+    .box-wrapper
+      top: 0
+      left: 0
+      .title
+        text-align: right
+      .box
+        .icon
+          bottom: $box-font-downsize * 0.5
+          left: $box-font-downsize * 0.5
+
+    button
+      cursor: pointer
+      position: absolute
+      bottom: 0
+      right: 0
+      color: #ccc
+      background-color: transparent
+      padding: 1em
 
