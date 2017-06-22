@@ -108,8 +108,7 @@ export default class AudioPlayer extends React.Component {
                 style={{ backgroundColor: base }}
               >{icon(index)}</div>
               <div className="name">
-                {file.name}
-                <a href={`/api/audio/${file.name}`} target="_blank">&#xE157;</a>
+                <a href={`/api/audio/${file.name}`} target="_blank">{file.name}</a>
               </div>
               <div className="progress">
                 <div

@@ -80,6 +80,7 @@ a
 
       .icon
         user-select: none
+        z-index: 1000
 
         font-size: $box-size - $box-font-downsize
         position: absolute
@@ -138,6 +139,8 @@ a
         .icon
           font-size: $box-size - $box-font-downsize
           color: transparent
+          pointer-events: none
+          cursor: default
 
         .content-wrapper
           opacity: 1
