@@ -91,7 +91,7 @@ export default class AudioPlayer extends React.Component {
       audioElement.currentTime = files.get(current).length * percentage;
     } else {
       this.playIndex(index);
-      audioElement.currentTime = files.get(current).length * percentage;
+      audioElement.currentTime = files.get(index).length * percentage;
     }
   }
 
