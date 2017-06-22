@@ -19,6 +19,7 @@ export default class AudioPlayer extends React.Component {
     };
 
     this.audioElement = null;
+    this.progressElement = null;
   }
 
   componentDidMount() {
@@ -33,9 +34,11 @@ export default class AudioPlayer extends React.Component {
 
   updateTime = () => {
     const { audioElement } = this;
+    if (!audioElement) return;
+
     const { files, current } = this.state;
 
-    if (audioElement && current !== -1) {
+    if (current !== -1) {
       const file = files.get(current);
 
       this.setState({
@@ -46,35 +49,50 @@ export default class AudioPlayer extends React.Component {
 
   playIndex = (index) => {
     const { audioElement } = this;
+    if (!audioElement) return;
 
-    if (audioElement) {
-      const { files, current } = this.state;
+    const { files, current } = this.state;
 
-      if (!audioElement.paused && index === this.state.current) {
-        audioElement.pause();
-        return;
-      }
-
-      if (index === this.state.current) {
-        audioElement.play();
-        return;
-      }
-
-      const prev = files.get(current);
-      const file = files.get(index);
-
-      this.setState({
-        files: files.set(current, prev.set('current', 0)),
-        current: index,
-      });
-
-      audioElement.src = `/api/audio/${file.name}`;
-      audioElement.play();
+    if (!audioElement.paused && index === this.state.current) {
+      audioElement.pause();
+      return;
     }
+
+    if (index === this.state.current) {
+      audioElement.play();
+      return;
+    }
+
+    const prev = files.get(current);
+    const file = files.get(index);
+
+    this.setState({
+      files: files.set(current, prev.set('current', 0)),
+      current: index,
+    });
+
+    audioElement.src = `/api/audio/${file.name}`;
+    audioElement.play();
   }
 
   handleAudioEnd = () => {
     this.playIndex((this.state.current + 1) % this.state.files.size);
+  }
+
+  handleSeek = (index, evt) => {
+    const { audioElement, progressElement } = this;
+    if (!audioElement || !progressElement) return;
+
+    const rect = progressElement.getBoundingClientRect();
+    const percentage = (evt.pageX - rect.left) / rect.width;
+      
+    const { files, current } = this.state;
+    if (index === current) {
+      audioElement.currentTime = files.get(current).length * percentage;
+    } else {
+      this.playIndex(index);
+      audioElement.currentTime = files.get(current).length * percentage;
+    }
   }
 
   render() {
@@ -110,7 +128,11 @@ export default class AudioPlayer extends React.Component {
               <div className="name">
                 <a href={`/api/audio/${file.name}`} target="_blank">{file.name}</a>
               </div>
-              <div className="progress">
+              <div
+                ref={(element) => { this.progressElement = element; }}
+                className="progress"
+                onClick={evt => this.handleSeek(index, evt)}
+              >
                 <div
                   className="progress-inner"
                   style={{
