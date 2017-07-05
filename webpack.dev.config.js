@@ -6,18 +6,18 @@ module.exports = {
   entry: {
     app: [
       './client/sass/main.sass',
-      './client/js/index.jsx',
+      './client/js/index.js',
     ],
   },
 
   output: {
     path: path.resolve(__dirname, 'build/'),
-    filename: '[name].[hash].js',
+    filename: '[name].js',
     publicPath: '/',
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.sass', '.scss'],
+    extensions: ['.js', '.elm', '.sass', '.scss'],
   },
 
   plugins: [
@@ -46,8 +46,11 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
+        test: /\.elm$/,
+        loaders: [
+          'elm-hot-loader',
+          'elm-webpack-loader?verbose=true&warn=true&debug=true&cache=false&cwd=.',
+        ],
       },
       {
         test: /\.s[ac]ss$/,
