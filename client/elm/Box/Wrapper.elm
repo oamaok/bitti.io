@@ -2,6 +2,7 @@ module Box.Wrapper exposing (..)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (class, style)
+import Html.Events exposing (onClick)
 import App.Model exposing (Model, Msg)
 
 
@@ -10,7 +11,7 @@ type alias BoxProperties =
     , bottom : Bool
     , icon : String
     , color : String
-    , onClick : Cmd Msg
+    , onClick : Msg
     , active : Bool
     }
 
@@ -41,6 +42,6 @@ view props content =
                 "box-wrapper"
     in
         if props.bottom then
-            div [ class wrapperClass ] [ contents, title ]
+            div [ class wrapperClass, onClick props.onClick ] [ contents, title ]
         else
-            div [ class wrapperClass ] [ title, contents ]
+            div [ class wrapperClass, onClick props.onClick ] [ title, contents ]

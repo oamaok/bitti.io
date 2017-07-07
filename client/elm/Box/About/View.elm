@@ -1,8 +1,7 @@
 module Box.About.View exposing (..)
 
 import Html exposing (Html, div)
-import Html.Attributes exposing (class)
-import App.Model exposing (Model, Msg, Box(About))
+import App.Model exposing (Model, Msg(OpenBox), Box(About))
 import Box.Wrapper exposing (BoxProperties)
 import Utils exposing (colorFromHue, Lightness(..))
 
@@ -14,9 +13,9 @@ view model =
         boxProperties =
             { title = "about"
             , bottom = False
-            , icon = "&#E88F;"
+            , icon = "\xE88F"
             , color = colorFromHue Dark model.siteHue
-            , onClick = Cmd.none
+            , onClick = OpenBox About
             , active = model.currentBox == Just About
             }
 

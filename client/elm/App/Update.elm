@@ -13,5 +13,15 @@ update msg model =
         SetHue hue ->
             ( { model | siteHue = hue }, Cmd.none )
 
-        _ ->
-            ( model, Cmd.none )
+        OpenBox box ->
+            ( { model | currentBox = Just box }, Cmd.none )
+
+        CloseBox ->
+            ( { model | currentBox = Nothing }, Cmd.none )
+
+        RootClick asd ->
+            let
+                debug =
+                    Debug.log "string" asd
+            in
+                ( { model | currentBox = Nothing }, Cmd.none )

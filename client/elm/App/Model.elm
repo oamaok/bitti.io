@@ -16,6 +16,7 @@ type alias Model =
 type Msg
     = OpenBox Box
     | CloseBox
+    | RootClick String
     | NewHue
     | SetHue Int
 
