@@ -1,13 +1,14 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const path = require('path');
 
 module.exports = {
   entry: {
     app: [
       './client/sass/main.sass',
-      './client/js/index.jsx',
+      './client/js/index.js',
     ],
   },
 
@@ -18,7 +19,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.sass', '.scss'],
+    extensions: ['.js', '.elm', '.sass', '.scss'],
   },
 
   plugins: [
@@ -26,7 +27,10 @@ module.exports = {
       template: './client/index.html',
       inject: 'body',
       filename: 'index.html',
+      inlineSource: '.(js|css)$',
     }),
+
+    new HtmlWebpackInlineSourcePlugin(),
 
     new webpack.DefinePlugin({
       PRODUCTION: true,
@@ -40,8 +44,8 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
+        test: /\.elm$/,
+        loader: 'elm-webpack-loader?verbose=false&warn=false&debug=false&cache=false&cwd=.',
       },
       {
         test: /\.s[ac]ss$/,
