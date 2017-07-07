@@ -46,7 +46,7 @@ module.exports = (shipit) => {
 
   shipit.blTask('restart-api-server', () =>
     shipit.remote(`cd ${shipit.currentPath} && npm install --prod`)
-    .then(() => shipit.remote('pm2 reload all'))
+    .then(() => shipit.remote('pm2 restart all'))
   );
 
 

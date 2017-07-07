@@ -1,7 +1,9 @@
 module App.Update exposing (..)
 
 import App.Model exposing (Model, Msg(..))
+import Maybe exposing (withDefault)
 import Random
+import String exposing (split)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -19,9 +21,14 @@ update msg model =
         CloseBox ->
             ( { model | currentBox = Nothing }, Cmd.none )
 
-        RootClick asd ->
+        RootClick targetClass ->
             let
-                debug =
-                    Debug.log "string" asd
+                firstClass =
+                    withDefault "" <| List.head <| split " " targetClass
             in
-                ( { model | currentBox = Nothing }, Cmd.none )
+            case firstClass of
+                "quad" ->
+                    ( { model | currentBox = Nothing }, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
